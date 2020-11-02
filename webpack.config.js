@@ -1,7 +1,6 @@
 const { VueLoaderPlugin } = require('vue-loader');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 var path = require('path')
-console.log(process.env);
 function config(obj)
 {
   var base = {

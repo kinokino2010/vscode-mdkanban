@@ -2,6 +2,7 @@
     "name": "markdown-kanban-board",
     "displayName": "markdown kanban board",
     "description": "",
+    "repository": "https://github.com/kinokino2010/vscode-mdkanban",
     "version": "1.0.0",
     "publisher": "KINOKINO",
     "engines": {
