@@ -112,7 +112,7 @@
         "tsc:compile": "tsc -p ./ && npm run vue-compile",
         "tsc:watch": "tsc -watch -p ./",
         "vscode:prepublish": "npm run compile",
-        "compile": "npm run webpack-compile",
+        "compile": "npm run webpack:compile",
         "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "devDependencies": {

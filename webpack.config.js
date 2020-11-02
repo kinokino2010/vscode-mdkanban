@@ -1,46 +1,50 @@
 const { VueLoaderPlugin } = require('vue-loader');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 var path = require('path')
-
-var base = {
-  module: {
-    rules: [
-      {
-        test: /\.css$/i,
-        use: [
-          "vue-style-loader",
-          {
-            loader:"css-loader",
-            options: {
-              esModule: false,
-            },
-          }
-        ]
-      },
-      {
-        test: /\.vue$/,
-        loader: "vue-loader"
-      },
-      {
-        test: /\.ts$/,
-        loader: 'ts-loader'
-      }      
+console.log(process.env);
+function config(obj)
+{
+  var base = {
+    module: {
+      rules: [
+        {
+          test: /\.css$/i,
+          use: [
+            "vue-style-loader",
+            {
+              loader:"css-loader",
+              options: {
+                esModule: false,
+              },
+            }
+          ]
+        },
+        {
+          test: /\.vue$/,
+          loader: "vue-loader"
+        },
+        {
+          test: /\.ts$/,
+          loader: 'ts-loader'
+        }      
+      ],
+    },
+    resolve: {
+      extensions: [
+        '.ts','.js'
+      ],
+    },  
+    plugins: [
+      new VueLoaderPlugin(),
+      new CleanWebpackPlugin()
     ],
-  },
-  resolve: {
-    extensions: [
-      '.ts','.js'
-    ],
-  },  
-  plugins: [
-    new VueLoaderPlugin(),
-    new CleanWebpackPlugin()
-  ],
-  devtool : process.env.SOURCE_MAP?'source-map':false,
-};
+    devtool : process.env.SOURCE_MAP?'source-map':false,
+  };
+  return Object.assign(obj,base);  
+}
 
 module.exports = (env,arg)=>[
-  Object.assign({
+  config({
     target: "node",
     entry: {
       'extension': './src/extension.ts',
@@ -53,8 +57,8 @@ module.exports = (env,arg)=>[
     externals:{
       'vscode':'commonjs vscode'
     }
-  },base),
-  Object.assign({
+  }),
+  config({
     entry: {
       'index': './src/media/index.js',
     },
@@ -62,5 +66,5 @@ module.exports = (env,arg)=>[
       path: path.resolve(__dirname, './media/'),
       filename: '[name].js',
     },
-  },base)
+  })
 ];
